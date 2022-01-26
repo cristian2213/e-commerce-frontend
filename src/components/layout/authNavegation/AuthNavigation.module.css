@@ -1,0 +1,59 @@
+.navigation {
+  height: 8rem;
+  padding: 4.8rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3.2rem;
+}
+
+.brand-box {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 2.4rem;
+}
+
+.brand-box > h1 {
+  font-size: 3.2rem;
+  color: #ffffff;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+}
+
+.brand-box > img {
+  width: 3rem;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 2.4rem;
+}
+
+.nav-list > li > a {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-list > li > a ion-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  color: #ffffff;
+}
+
+.nav-list > li > a:link,
+.nav-list > li > a:visited {
+  text-decoration: none;
+  transition: all 250ms;
+  font-size: 1.6rem;
+  color: #ffffff;
+}
+
+/* .nav-list > li > a:hover,
+.nav-list > li > a:active {
+} */
+
+.is-active {
+  color: #dcdfe5 !important;
+}

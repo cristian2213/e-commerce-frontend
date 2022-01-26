@@ -1,0 +1,27 @@
+.btn,
+.btn:link,
+.btn:visited {
+  text-decoration: none;
+  font-size: 1.6rem;
+  padding: 1.4rem 1.8rem;
+  border-radius: 6px;
+  font-family: 500;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 250ms;
+}
+
+.btn--full {
+  background-color: #5e72e4;
+  color: #ffffff;
+  /* TRICKY for center */
+  display: flex;
+  margin: 0 auto;
+}
+
+.btn--full:hover,
+.btn--full:active {
+  background-color: #4b5bb6;
+  color: #ffffff;
+}

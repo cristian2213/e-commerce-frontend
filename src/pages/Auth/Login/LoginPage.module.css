@@ -1,0 +1,16 @@
+.background {
+  height: 100vh;
+  background-color: #172b4d;
+}
+
+.navigation-box {
+  background: linear-gradient(87deg, #11cdef, #1171ef);
+  clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+  padding: 0 0 9.6rem;
+}
+
+.container {
+  max-width: 120rem;
+  margin: 0 auto;
+  padding: 0 3.2rem;
+}
