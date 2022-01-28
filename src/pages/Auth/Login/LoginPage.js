@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./LoginPage.module.css";
+
 import Layout from "../../../components/layout/dashboard/Layout";
 import AuthNavigation from "../../../components/layout/authNavegation/AuthNavigation";
 import Welcome from "../../../components/Welcome/Welcome";
@@ -18,9 +19,11 @@ function LoginPage() {
             desc="Use these awesome forms to login or create new account in your project for free."
             className="margin--top-lg"
           />
-          {/* LOGIN COMPONENT */}
-          <LoginForm />
         </div>
+      </div>
+      {/* LOGIN COMPONENT */}
+      <div className={`${styles.container}`}>
+        <LoginForm />
       </div>
     </Layout>
   );
