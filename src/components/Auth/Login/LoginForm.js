@@ -1,62 +1,144 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styles from "./Login.module.css";
-import Button from "../../UI/Button/Button";
-import InputWrap from "../../UI/InputWrap/InputWrap";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import styles from './Login.module.css';
+import { useDispatch } from 'react-redux';
+import Button from '../../UI/Button/Button';
+import InputWrap from '../../UI/InputWrap/InputWrap';
+import SocialNetworks from '../SocialNetworks/SocialNetworks';
+import FormWrap from '../../UI/FormWrap/FormWrap';
+import useInput from '../../../hooks/Auth/useInput';
+import InputError from '../../UI/InputError/InputError';
+import {
+  validateEmail,
+  validatePass,
+} from '../../../helpers/Auth/inputsValidations';
+import { REMEMBER_USER } from '../../../types/index';
+import {
+  setDataInLocalStorate,
+  getDataFromLocalStorage,
+} from '../../../helpers/global';
+import { commitSignIn } from '../../../features/Auth/signInAPI';
 
 function LoginForm() {
+  const [rememberUser, setRememberUser] = useState(false);
+  const [savedUser, setSavedUser] = useState(null);
+  const {
+    value: vEmail,
+    isValid: iVEmail,
+    inputValidation: emailValidation,
+    handleIBlur: hIBEmail,
+    handleIChange: hICEmail,
+    handleIReset: hIREmail,
+    setInput: setEmail,
+  } = useInput(validateEmail);
+  const {
+    value: vPass,
+    isValid: iVPass,
+    inputValidation: passValidation,
+    handleIBlur: hIBPass,
+    handleIChange: hICPass,
+    handleIReset: hIRPass,
+    setInput: setPass,
+  } = useInput(validatePass);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const savedUser = getDataFromLocalStorage(REMEMBER_USER);
+    const keys = Object.keys(savedUser);
+    if (savedUser && keys.includes('email') && keys.includes('pass')) {
+      setEmail(savedUser.email);
+      setPass(savedUser.pass);
+      setSavedUser(savedUser);
+    }
+  }, [setEmail, setPass]);
+
+  const handleReminder = () => {
+    setRememberUser((preValue) => !preValue);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert("clicked!");
+
+    if (!iVEmail || !iVPass) return null;
+
+    if (rememberUser)
+      setDataInLocalStorate(REMEMBER_USER, { email: vEmail, pass: vPass });
+
+    // TRUNK
+    dispatch(commitSignIn({ email: vEmail, password: vPass }));
+
+    // EMPTY FORM
+    hIREmail();
+    hIRPass();
+    setRememberUser(false);
   };
+
+  const emailErrorMsg =
+    emailValidation.type === 'required'
+      ? 'The email field is required'
+      : 'The email field is invalid';
+  const PassErrorMsg =
+    passValidation.type === 'required'
+      ? 'The password field is required'
+      : 'The password field is invalid';
 
   return (
     <>
-      <div className={styles.form}>
-        <div className={styles["signin-box"]}>
-          <span>Sign in with</span>
-          <div>
-            <button>
-              <ion-icon name="logo-github"></ion-icon>
-              <span>Github</span>
-            </button>
+      <FormWrap>
+        <SocialNetworks />
 
-            <button>
-              <ion-icon name="logo-google"></ion-icon>
-              <span>Google</span>
-            </button>
-          </div>
-        </div>
-
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className={styles.form} noValidate>
           <legend>Or sign in with credentials</legend>
 
           <InputWrap>
-            <ion-icon name="mail"></ion-icon>
-            <input type="email" id="email" placeholder="Email" />
+            <ion-icon name='mail'></ion-icon>
+            <input
+              type='email'
+              id='email'
+              placeholder='Email'
+              value={vEmail}
+              onChange={hICEmail}
+              onBlur={hIBEmail}
+            />
           </InputWrap>
+          {emailValidation.hasError && (
+            <InputError msg={emailErrorMsg} className={styles['input-error']} />
+          )}
 
           <InputWrap>
-            <ion-icon name="lock-closed"></ion-icon>
-            <input type="email" id="email" placeholder="Password" />
-          </InputWrap>
-
-          <div className={styles["checbox-wrap"]}>
-            <label htmlFor="remember">Remember me</label>
+            <ion-icon name='lock-closed'></ion-icon>
             <input
-              type="checkbox"
-              id="remember"
-              name="remember"
-              value="remember"
-              className={styles["checkbox-input"]}
+              type='password'
+              id='password'
+              placeholder='Password'
+              value={vPass}
+              onChange={hICPass}
+              onBlur={hIBPass}
+            />
+          </InputWrap>
+          {passValidation.hasError && (
+            <InputError msg={PassErrorMsg} className={styles['input-error']} />
+          )}
+
+          <div className={styles['checbox-wrap']}>
+            <label htmlFor='remember'>Remember me</label>
+            <input
+              type='checkbox'
+              id='remember'
+              name='remember'
+              value='remember'
+              className={styles['checkbox-input']}
+              onChange={handleReminder}
             />
           </div>
+
           <Button>Sign in</Button>
         </form>
-        <Link to="/signin" className={styles["forgot-password-link"]}>
+
+        <Link to='/signin' className={styles['forgot-password-link']}>
           Forgot password
         </Link>
-      </div>
+      </FormWrap>
     </>
   );
 }

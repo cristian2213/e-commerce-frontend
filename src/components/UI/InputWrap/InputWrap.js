@@ -1,5 +1,5 @@
-import React from "react";
-import styles from "./InputWrap.module.css";
+import React from 'react';
+import styles from './InputWrap.module.css';
 
 function InputWrap(props) {
   const wrapStyles = props.className ? props.className : styles.wrap;

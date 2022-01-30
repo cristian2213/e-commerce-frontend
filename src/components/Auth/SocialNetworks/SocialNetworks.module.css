@@ -1,0 +1,54 @@
+.signin-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2.4rem;
+  padding-bottom: 2.4rem;
+  margin-bottom: 4.8rem;
+  border-bottom: 1px solid rgb(50 50 93 / 15%);
+}
+
+.signin-box > span {
+  font-size: 1.4rem;
+  color: #babfcc;
+}
+
+.signin-box div {
+  display: flex;
+  gap: 1.4rem;
+}
+
+.signin-box div button {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.4rem 2.4rem;
+  border-radius: 6px;
+  border: none;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.signin-box div button:hover,
+.signin-box div button:active {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 14px rgb(50 50 93 / 10%), 0 3px 6px rgb(0 0 0 / 8%);
+}
+.signin-box div button:hover > span,
+.signin-box div button:active > span {
+  color: #424c66;
+  opacity: 0.9;
+}
+
+.signin-box div button ion-icon {
+  font-size: 2rem;
+  opacity: 50%;
+}
+.signin-box div button span {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #5e72e4;
+}
