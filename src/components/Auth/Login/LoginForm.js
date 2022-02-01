@@ -16,12 +16,13 @@ import { REMEMBER_USER } from '../../../types/index';
 import {
   setDataInLocalStorate,
   getDataFromLocalStorage,
+  deleteDataFromLocalStorage,
 } from '../../../helpers/global';
 import { commitSignIn } from '../../../features/Auth/signInAPI';
 
 function LoginForm() {
   const [rememberUser, setRememberUser] = useState(false);
-  const [savedUser, setSavedUser] = useState(null);
+
   const {
     value: vEmail,
     isValid: iVEmail,
@@ -44,16 +45,21 @@ function LoginForm() {
 
   useEffect(() => {
     const savedUser = getDataFromLocalStorage(REMEMBER_USER);
+    if (!savedUser) return;
     const keys = Object.keys(savedUser);
     if (savedUser && keys.includes('email') && keys.includes('pass')) {
       setEmail(savedUser.email);
       setPass(savedUser.pass);
-      setSavedUser(savedUser);
+      setRememberUser(true);
     }
   }, [setEmail, setPass]);
 
-  const handleReminder = () => {
-    setRememberUser((preValue) => !preValue);
+  const handleChecker = () => {
+    setRememberUser((prevValue) => {
+      const forgetUser = !prevValue === false ? true : false;
+      forgetUser && deleteDataFromLocalStorage(REMEMBER_USER);
+      return !rememberUser;
+    });
   };
 
   const handleSubmit = (event) => {
@@ -82,6 +88,7 @@ function LoginForm() {
       ? 'The password field is required'
       : 'The password field is invalid';
 
+  // const isChecked = rememberUser ? true : false;
   return (
     <>
       <FormWrap>
@@ -128,11 +135,12 @@ function LoginForm() {
               name='remember'
               value='remember'
               className={styles['checkbox-input']}
-              onChange={handleReminder}
+              onChange={handleChecker}
+              checked={rememberUser}
             />
           </div>
 
-          <Button>Sign in</Button>
+          <Button>Sign in {rememberUser + ''}</Button>
         </form>
 
         <Link to='/signin' className={styles['forgot-password-link']}>

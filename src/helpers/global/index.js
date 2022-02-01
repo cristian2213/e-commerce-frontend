@@ -5,10 +5,15 @@ export function encodeToBase64(string) {
 
 export function decodeFromBase64(string) {
   // ascii to binary
-  return atob(string);
+  try {
+    return atob(string);
+  } catch {
+    return null;
+  }
 }
 
 export function setDataInLocalStorate(key, value) {
+  if (getDataFromLocalStorage(key)) return;
   localStorage.setItem(
     encodeToBase64(key),
     encodeToBase64(JSON.stringify(value)) // FIXME This can be safe if you added encryption in the back side for the password
@@ -16,9 +21,20 @@ export function setDataInLocalStorate(key, value) {
 }
 
 export function getDataFromLocalStorage(key) {
-  const decodedKey = encodeToBase64(key);
-  const data = localStorage.getItem(decodedKey);
+  const encodedKey = encodeToBase64(key);
+  const data = localStorage.getItem(encodedKey);
   if (!data) return null;
   const decodedData = decodeFromBase64(data);
-  return JSON.parse(decodedData);
+  if (!decodedData) return null;
+
+  try {
+    return JSON.parse(decodedData);
+  } catch {
+    return null;
+  }
+}
+
+export function deleteDataFromLocalStorage(key) {
+  if (!getDataFromLocalStorage(key)) return;
+  localStorage.removeItem(encodeToBase64(key));
 }
