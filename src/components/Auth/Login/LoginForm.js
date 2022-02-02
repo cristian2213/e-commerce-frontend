@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import styles from './Login.module.css';
 import { useDispatch } from 'react-redux';
@@ -21,6 +22,7 @@ import {
 import { commitSignIn } from '../../../features/Auth/signInAPI';
 
 function LoginForm() {
+  // const navigate = useNavigate();
   const [rememberUser, setRememberUser] = useState(false);
 
   const {
@@ -64,16 +66,10 @@ function LoginForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     if (!iVEmail || !iVPass) return null;
-
     if (rememberUser)
       setDataInLocalStorate(REMEMBER_USER, { email: vEmail, pass: vPass });
-
-    // TRUNK
     dispatch(commitSignIn({ email: vEmail, password: vPass }));
-
-    // EMPTY FORM
     hIREmail();
     hIRPass();
     setRememberUser(false);
@@ -88,7 +84,6 @@ function LoginForm() {
       ? 'The password field is required'
       : 'The password field is invalid';
 
-  // const isChecked = rememberUser ? true : false;
   return (
     <>
       <FormWrap>
