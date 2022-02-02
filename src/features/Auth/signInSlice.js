@@ -1,15 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  userName: null,
-  userId: null,
-  email: null,
-  token: null,
+  userData: {
+    id: null,
+    name: null,
+    email: null,
+  },
+
+  auth: {
+    token: null,
+    expirationTime: null,
+  },
 };
 
 const reducers = {
   setAuthentication: (state, action) => {
-    // const data = action.payload;
+    // const payload = action.payload;
   },
 };
 

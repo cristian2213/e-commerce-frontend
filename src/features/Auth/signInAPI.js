@@ -1,39 +1,35 @@
-import axios from 'axios';
-import { setAuthentication } from './signInSlice';
+import clientAxios from '../../config/clientAxios';
+import { showNotification } from '../Notifications/notificationSlice';
+import {
+  setStartRequest,
+  setRequestCompleted,
+} from '../RequestStaus/requestStatusSlice';
 
 export function commitSignIn(authData) {
   return async (dispatch) => {
-    // FIXME Create a slice for notifications or spinner
-    // uiActions.showNotification({
-    //     status: 'pending',
-    //     title: 'Authenticating...',
-    //     message: 'Sending data for authentication!',
-    //   })
-
-    const sendRequest = async () => {
-      // FIXME Create axios Intance
-      const url = 'localhost:3001/api/v1/auth/signin';
-      const response = await axios({
-        method: 'post',
-        url,
-        data: authData,
-      });
-      return response;
-    };
+    dispatch(setStartRequest());
 
     try {
-      const authResponse = await sendRequest();
-      console.log(authResponse);
-      dispatch(setAuthentication());
+      const response = await clientAxios.post('/auth/signin', authData);
+      dispatch(setRequestCompleted());
+
+      dispatch(
+        showNotification({
+          title: 'Successful request',
+          message: response.message,
+        })
+      );
     } catch (error) {
+      dispatch(setRequestCompleted());
+      dispatch(
+        showNotification({
+          title: 'Failed request!',
+          message:
+            error.response.data.message || 'Failed request, Please try again',
+        })
+      );
+      // FIXME create a switch to manage the different responses from the server
       console.log(error);
-      //   dispatch(
-      //     uiActions.showNotification({
-      //       status: 'error',
-      //       title: 'Error!',
-      //       message: 'Sending data for authentication failed!',
-      //     })
-      //   );
     }
   };
 }
