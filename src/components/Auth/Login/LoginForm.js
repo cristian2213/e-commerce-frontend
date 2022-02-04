@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import styles from './Login.module.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../UI/Button/Button';
 import InputWrap from '../../UI/InputWrap/InputWrap';
 import SocialNetworks from '../SocialNetworks/SocialNetworks';
@@ -19,10 +18,12 @@ import {
   getDataFromLocalStorage,
   deleteDataFromLocalStorage,
 } from '../../../helpers/global';
-import { commitSignIn } from '../../../features/Auth/signInAPI';
+import { commitSignIn } from '../../../features/Auth/SignIn/signInAPI';
+import { selectIsSuccessful } from '../../../features/RequestStaus/requestStatusSlice';
 
 function LoginForm() {
-  // const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isSuccessful = useSelector(selectIsSuccessful);
   const [rememberUser, setRememberUser] = useState(false);
 
   const {
@@ -43,7 +44,6 @@ function LoginForm() {
     handleIReset: hIRPass,
     setInput: setPass,
   } = useInput(validatePass);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const savedUser = getDataFromLocalStorage(REMEMBER_USER);
@@ -66,10 +66,17 @@ function LoginForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!iVEmail || !iVPass) return null;
+    if (!iVEmail) setEmail('');
+    if (!iVPass) {
+      setPass('');
+      return;
+    }
+
     if (rememberUser)
       setDataInLocalStorate(REMEMBER_USER, { email: vEmail, pass: vPass });
     dispatch(commitSignIn({ email: vEmail, password: vPass }));
+
+    if (!isSuccessful) return;
     hIREmail();
     hIRPass();
     setRememberUser(false);
@@ -101,7 +108,9 @@ function LoginForm() {
               value={vEmail}
               onChange={hICEmail}
               onBlur={hIBEmail}
+              autoComplete='off'
             />
+            <span></span>
           </InputWrap>
           {emailValidation.hasError && (
             <InputError msg={emailErrorMsg} className={styles['input-error']} />
@@ -117,6 +126,7 @@ function LoginForm() {
               onChange={hICPass}
               onBlur={hIBPass}
             />
+            <span></span>
           </InputWrap>
           {passValidation.hasError && (
             <InputError msg={PassErrorMsg} className={styles['input-error']} />
@@ -135,10 +145,10 @@ function LoginForm() {
             />
           </div>
 
-          <Button>Sign in {rememberUser + ''}</Button>
+          <Button>Sign in</Button>
         </form>
 
-        <Link to='/signin' className={styles['forgot-password-link']}>
+        <Link to='/reset-password' className={styles['forgot-password-link']}>
           Forgot password
         </Link>
       </FormWrap>

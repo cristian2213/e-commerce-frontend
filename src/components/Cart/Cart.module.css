@@ -1,0 +1,13 @@
+.header span {
+  display: block;
+  text-align: center;
+  font-size: 2.4rem;
+  font-weight: 600;
+}
+
+.content {
+  font-size: 1.6rem;
+  margin: 2.4rem 0 2.4rem;
+  color: inherit;
+  text-align: center;
+}

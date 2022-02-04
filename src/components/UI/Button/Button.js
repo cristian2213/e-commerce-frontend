@@ -8,7 +8,7 @@ function Button(props) {
     : `${styles.btn} ${styles['btn--full']}`;
 
   return (
-    <button {...props} type={type} className={classes}>
+    <button {...props} type={type} className={classes} onClick={props.onClick}>
       {props.children}
     </button>
   );

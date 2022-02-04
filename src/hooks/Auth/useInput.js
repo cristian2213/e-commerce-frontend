@@ -25,6 +25,7 @@ function useInput(validateInput, errorClass) {
   };
 
   const setInput = useCallback((value) => {
+    setIsTouched(true);
     setEnteredValue(value);
   }, []);
 
