@@ -1,8 +1,12 @@
 <!-- PROGRESS -->
 
-## PROGRESS
+## Sign In Page
 
-![Login Page](public/login.png?raw=true "Login Page")
+![Login Page](public/login.png?raw=true 'Login Page')
+
+## Reset Password Page
+
+![Reset Password Page](public/reset-pass.jpg?raw=true 'Reset Password Page')
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 

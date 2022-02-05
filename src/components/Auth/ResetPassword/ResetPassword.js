@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './ResetPassword.module.css';
+import { Link } from 'react-router-dom';
 import FormWrap from '../../UI/FormWrap/FormWrap';
 import InputWrap from '../../UI/InputWrap/InputWrap';
 import Button from '../../UI/Button/Button';
@@ -56,6 +57,9 @@ function ResetPassword() {
 
         <Button>Reset Password</Button>
       </form>
+      <Link to='/signin' className={styles['go-back-link']}>
+        Go back to sign in page
+      </Link>
     </FormWrap>
   );
 }
