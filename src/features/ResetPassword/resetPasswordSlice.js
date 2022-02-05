@@ -1,7 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {};
-const reducers = {};
+
+const reducers = {
+  setPasswordToke: (state, action) => {},
+};
 
 const resetPasswordSlice = createSlice({
   name: 'resetPassword',
@@ -11,7 +14,7 @@ const resetPasswordSlice = createSlice({
 
 const { actions, reducer } = resetPasswordSlice;
 
-export const {} = actions;
+export const { setPasswordToke } = actions;
 
 // GETTERS
 
