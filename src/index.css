@@ -90,7 +90,7 @@ html {
 
 body {
   /* font-family: 'Open Sans', sans-serif; */
-  font-family: "Rubik", sans-serif;
+  font-family: 'Rubik', sans-serif;
   font-weight: 400;
   line-height: 1;
   color: #525f7f;
@@ -101,12 +101,33 @@ img {
   height: auto;
 }
 
+form div span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #5e72e4;
+  transform-origin: bottom right;
+  transform: scaleX(0);
+  transition: transform 300ms ease;
+}
+
+form div input:focus ~ span {
+  transform-origin: bottom left;
+  transform: scaleX(1);
+}
+
 /* 
 sm => 1.6rem
 md => 3.2rem
 lg => 4.8rem
 xl => 9.6rem
 */
+
+.margin--bottom-md {
+  margin-bottom: 3.2rem !important;
+}
 
 .margin--top-lg {
   margin-top: 4.8rem !important;

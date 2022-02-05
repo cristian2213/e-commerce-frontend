@@ -5,3 +5,7 @@ export const REMEMBER_USER = 'REMEMBER_USER';
 export const N_PENDING = 'PENDING';
 export const N_COMPLETED = 'COMPLETED';
 export const N_ERROR = 'PENDING';
+
+// AUTHENTICATION TOKEN
+export const TOKEN_KEY = 'TOKEN_KEY';
+export const TOKEN_TTL = 'TOKEN_TTL'

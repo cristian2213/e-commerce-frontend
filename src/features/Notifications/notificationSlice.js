@@ -14,7 +14,9 @@ const reducers = {
     state.message = message;
   },
   hideNotification: (state, _action) => {
-    state.showNotification = false;
+    state.showNotification = null;
+    state.title = null;
+    state.message = null;
   },
 };
 
@@ -27,7 +29,7 @@ const notificationSlice = createSlice({
 const { actions, reducer } = notificationSlice;
 
 // ACTIONS
-export const { showNotification } = actions;
+export const { showNotification, hideNotification } = actions;
 
 // GETTERS
 export const selectNotification = (state) => state.notification;

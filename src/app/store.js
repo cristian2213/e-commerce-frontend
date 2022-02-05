@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import signInReducer from '../features/Auth/signInSlice';
-import notificationReducer from '../features/Notifications/Notification';
+import signInReducer from '../features/Auth/SignIn/signInSlice';
+import notificationReducer from '../features/Notifications/notificationSlice';
 import requestStatusReducer from '../features/RequestStaus/requestStatusSlice';
 
 export const store = configureStore({
