@@ -7,11 +7,11 @@ const initialState = {
 
 const reducers = {
   setStartRequest: (state, _action) => {
-    state.requestCompleted = true;
+    state.requestCompleted = false;
   },
   setRequestCompleted: (state, action) => {
-    state.requestCompleted = false;
-    state.requestCompleted = action.payload.isSuccessful;
+    state.requestCompleted = true;
+    state.isSuccessful = action.payload.isSuccessful;
   },
 };
 
