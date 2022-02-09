@@ -1,14 +1,19 @@
 import React from 'react';
 import styles from './ResetPassword.module.css';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import FormWrap from '../../UI/FormWrap/FormWrap';
 import InputWrap from '../../UI/InputWrap/InputWrap';
 import Button from '../../UI/Button/Button';
 import InputError from '../../UI/InputError/InputError';
 import useInput from '../../../hooks/Auth/useInput';
 import { validateEmail } from '../../../helpers/Auth/inputsValidations';
+import { commitEmailChecking } from '../../../features/ResetPassword/resetPasswordAPI';
+import { selectIsSuccessful } from '../../../features/RequestStaus/requestStatusSlice';
 
 function ResetPassword() {
+  const dispatch = useDispatch();
+  const requestIsSuccessful = useSelector(selectIsSuccessful);
   const {
     value,
     isValid,
@@ -26,6 +31,9 @@ function ResetPassword() {
       return;
     }
 
+    dispatch(commitEmailChecking({ email: value }));
+    if (!requestIsSuccessful) return;
+
     handleIReset();
   };
 
@@ -36,7 +44,7 @@ function ResetPassword() {
 
   return (
     <FormWrap>
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <form className={styles.form} onSubmit={handleSubmit} noValidate>
         <legend>Please enter your email to reset your password.</legend>
         <InputWrap className='margin--bottom-md'>
           <ion-icon name='mail'></ion-icon>

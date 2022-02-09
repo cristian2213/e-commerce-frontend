@@ -8,6 +8,9 @@ const LoginPage = lazy(() => import('./pages/Auth/Login/LoginPage'));
 const ResetPasswordPage = lazy(() =>
   import('./pages/Auth/ResetPassword/ResetPasswordPage')
 );
+const EmailValidationPage = lazy(() =>
+  import('./pages/Auth/EmailValidation/EmailValidationPage')
+);
 
 function App() {
   return (
@@ -20,6 +23,15 @@ function App() {
           <Route path='/signin' element={<LoginPage />} />
           <Route path='/signup' element={<p>SignUp</p>} />
           <Route path='/reset-password' element={<ResetPasswordPage />} />
+          <Route
+            path='/email-validation/:token'
+            element={<EmailValidationPage />}
+          />
+          {/* FIXME RESTRICT ACCESS */}
+          <Route
+            path='/change-password'
+            element={<p>Change password page</p>}
+          />
           <Route
             path='/dashboard'
             element={

@@ -1,40 +1,43 @@
 import clientAxios from '../../config/clientAxios';
 import { showNotification } from '../Notifications/notificationSlice';
 import {
-  setRequestCompleted,
   setStartRequest,
+  setRequestCompleted,
 } from '../RequestStaus/requestStatusSlice';
 import { parseResponseMsg } from '../../helpers/Requests/parseResponseMsg';
+import { setEmailToken } from './validateEmailTokenSlice';
 
-export function commitEmailChecking(email) {
+export function validateEmailToken(token) {
   return async (dispatch) => {
     dispatch(setStartRequest());
     try {
-      const response = await clientAxios.post('/users/reset-password', email);
+      const {
+        data: { hasValidToken },
+      } = await clientAxios.get(`/users/reset-password/${token}`);
+
       dispatch(
         setRequestCompleted({
           isSuccessful: true,
         })
       );
 
-      const resposeMsg = parseResponseMsg(response);
       dispatch(
-        showNotification({
-          title: 'Password reset',
-          message: resposeMsg,
+        setEmailToken({
+          hasValidToken,
         })
       );
     } catch (error) {
-      const errorMsg = parseResponseMsg(error, true);
+      const responseMsg = parseResponseMsg(error, true);
       dispatch(
         setRequestCompleted({
           isSuccessful: false,
         })
       );
+
       dispatch(
         showNotification({
-          title: 'Password reset',
-          message: errorMsg,
+          title: 'Verify account',
+          message: responseMsg,
         })
       );
     }

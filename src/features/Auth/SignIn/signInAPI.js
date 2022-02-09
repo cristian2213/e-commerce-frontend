@@ -5,6 +5,7 @@ import {
   setRequestCompleted,
 } from '../../RequestStaus/requestStatusSlice';
 import { setAuthentication } from './signInSlice';
+import { parseResponseMsg } from '../../../helpers/Requests/parseResponseMsg';
 
 export function commitSignIn(authData) {
   return async (dispatch) => {
@@ -31,6 +32,7 @@ export function commitSignIn(authData) {
         })
       );
     } catch (error) {
+      const responseMsg = parseResponseMsg(error, true);
       dispatch(
         setRequestCompleted({
           isSuccessful: false,
@@ -38,13 +40,10 @@ export function commitSignIn(authData) {
       );
       dispatch(
         showNotification({
-          title: 'Failed request!',
-          message:
-            error.response.data.message || 'Failed request, Please try again.',
+          title: 'Sign In',
+          message: responseMsg,
         })
       );
-      // FIXME create a switch to manage the different responses from the server
-      console.log(error);
     }
   };
 }
