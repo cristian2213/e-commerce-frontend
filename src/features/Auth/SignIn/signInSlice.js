@@ -43,8 +43,10 @@ const signInSlice = createSlice({
 
 const { actions, reducer } = signInSlice;
 
+// ACTIONS
 export const { setAuthentication, setLogOut } = actions;
 
+// GETTERS
 export const selectIsAuthenticated = (state) => {
   return getTokenFromLocalStorage(TOKEN_KEY);
 };

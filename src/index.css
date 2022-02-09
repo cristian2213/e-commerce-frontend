@@ -118,6 +118,13 @@ form div input:focus ~ span {
   transform: scaleX(1);
 }
 
+.no-copy {
+  -webkit-user-select: none; /* Chrome all / Safari all */
+  -moz-user-select: none; /* Firefox all */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none;
+}
+
 /* 
 sm => 1.6rem
 md => 3.2rem

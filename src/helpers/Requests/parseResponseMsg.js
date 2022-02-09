@@ -1,4 +1,4 @@
-export function parseResponse(serverRes, error = false) {
+export function parseResponseMsg(serverRes, error = false) {
   let errorMsg;
   if (!error) errorMsg = serverRes.data.message;
   else
