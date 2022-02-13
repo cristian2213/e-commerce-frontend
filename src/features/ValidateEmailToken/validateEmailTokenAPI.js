@@ -38,6 +38,7 @@ export function validateEmailToken(token) {
         showNotification({
           title: 'Verify account',
           message: responseMsg,
+          showNotification: false,
         })
       );
     }

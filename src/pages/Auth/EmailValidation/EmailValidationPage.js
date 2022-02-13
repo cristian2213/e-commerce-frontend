@@ -1,49 +1,60 @@
 import React, { useEffect } from 'react';
 import styles from './EmailValidationPage.module.css';
-import { useParams, useNavigate } from 'react-router-dom';
-import LoadSpinner from '../../../components/UI/Spinner/LoadSpinner';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import AuthSpinner from '../../../components/UI/Spinner/AuthSpinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectValidToken } from '../../../features/ValidateEmailToken/validateEmailTokenSlice';
 import { validateEmailToken } from '../../../features/ValidateEmailToken/validateEmailTokenAPI';
-import {
-  selectNotification,
-  hideNotification,
-} from '../../../features/Notifications/notificationSlice';
-import Cart from '../../../components/Cart/Cart';
+import { selectNotification } from '../../../features/Notifications/notificationSlice';
+import CircleSign from '../../../components/UI/Icons/Circle/CircleSign';
+import { selectRequestStatus } from '../../../features/RequestStaus/requestStatusSlice';
+
+let timeOut;
 
 function EmailValidationPage() {
   const { token } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const hasValidToken = useSelector(selectValidToken);
-  const { showNotification, title, message } = useSelector(selectNotification);
+  const { message } = useSelector(selectNotification);
+  const { requestCompleted, isSuccessful } = useSelector(selectRequestStatus);
 
-  const handleCloseModal = () => {
-    dispatch(hideNotification());
-  };
-
-  /* 
-  - NOTE TO ME:
-    - MISSING TASKS:
-      - CHANGE LoadSpinner FOR A COMPONENT WITH ANIMATIONS.
-      - IF THE TOKEN HAS EXPIRED, SO SHOW MODAL WITH INFORMATION AND REDIRECT TO THE RESETPASSWORD COMPONENT TO GENERATE ANOTHER TOKEN.
-      - IF THE TOKEN HASN'T EXPIRTED, SO SHOW MODAL AND REDIRECT TO THE CHANGEPASSWORD COMPONENT TO CHANGE THE PASSWORD.
-  */
   useEffect(() => {
     if (hasValidToken) navigate('/change-password');
 
-    dispatch(validateEmailToken(token));
+    timeOut = setTimeout(() => {
+      dispatch(validateEmailToken(token));
+    }, 4000);
+    return () => {
+      clearTimeout(timeOut);
+    };
   }, [hasValidToken, navigate, dispatch, token]);
 
+  const CircleComponent =
+    requestCompleted && !isSuccessful ? (
+      <CircleSign isSuccess={false} />
+    ) : (
+      requestCompleted && isSuccessful && <CircleSign isSuccess={true} />
+    );
+
+  const showMessage = !requestCompleted
+    ? "Please wait a moment, We're validating your token."
+    : requestCompleted &&
+      !isSuccessful && (
+        <>
+          {message}
+          <Link to='/reset-password' replace={true} className={styles.failure}>
+            Generate new email
+          </Link>
+        </>
+      );
+
+  const descriptionStyles = `${styles.description} no-copy`;
   return (
     <div className={styles.container}>
-      <LoadSpinner />
-      <p className={styles.description}>
-        Please wait a moment, We're validating your email.
-      </p>
-      {showNotification && (
-        <Cart title={title} message={message} onClose={handleCloseModal} />
-      )}
+      {!requestCompleted && <AuthSpinner />}
+      {CircleComponent}
+      <p className={descriptionStyles}>{showMessage}</p>
     </div>
   );
 }
