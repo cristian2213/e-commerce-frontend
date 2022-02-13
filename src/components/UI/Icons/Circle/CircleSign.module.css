@@ -1,0 +1,12 @@
+.container > [name='close-circle-outline'],
+.container > [name='checkmark-circle-outline'] {
+  font-size: 9rem;
+  text-align: center;
+}
+.container > [name='checkmark-circle-outline'] {
+  color: rgb(59, 255, 183);
+}
+
+.container > [name='close-circle-outline'] {
+  color: rgb(230, 74, 71);
+}

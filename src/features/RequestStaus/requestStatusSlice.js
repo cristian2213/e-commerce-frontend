@@ -29,5 +29,6 @@ export const { setStartRequest, setRequestCompleted } = actions;
 // GETTERS
 export const selectStatus = (state) => state.requestStatus.requestCompleted;
 export const selectIsSuccessful = (state) => state.requestStatus.isSuccessful;
+export const selectRequestStatus = (state) => state.requestStatus;
 
 export default reducer;

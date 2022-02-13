@@ -8,8 +8,8 @@ const initialState = {
 
 const reducers = {
   showNotification: (state, action) => {
-    const { title, message } = action.payload;
-    state.showNotification = true;
+    const { title, message, showNotification } = action.payload;
+    state.showNotification = showNotification === undefined ? true : showNotification;
     state.title = title;
     state.message = message;
   },

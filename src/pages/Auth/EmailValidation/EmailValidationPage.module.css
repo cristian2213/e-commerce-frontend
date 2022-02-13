@@ -1,17 +1,51 @@
 .container {
-  position: relative;
+  background: linear-gradient(87deg, #11cdef, #1171ef);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.4rem;
 }
 
 .description {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2.4rem;
   font-size: 2rem;
   line-height: 1.3;
   color: #fff;
   opacity: 0.98;
-  text-align: center;
+}
 
-  position: absolute;
-  top: 60%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  
+.description > .btn,
+.description > a:link,
+.description > a:visited {
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1.6rem;
+  padding: 1.4rem 1.8rem;
+  border-radius: 6px;
+  font-family: 500;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 250ms;
+}
+
+.failure {
+  color: #ffffff;
+  display: flex;
+  margin: 0 auto;
+}
+
+.failure {
+  background-color: #e64a47;
+}
+
+.failure:hover,
+.failure:active {
+  background-color: #b83b39;
 }
