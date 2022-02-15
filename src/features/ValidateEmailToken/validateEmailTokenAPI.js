@@ -1,4 +1,4 @@
-import clientAxios from '../../config/clientAxios';
+import clientAxios from '../../config/axios/clientAxios';
 import { showNotification } from '../Notifications/notificationSlice';
 import {
   setStartRequest,

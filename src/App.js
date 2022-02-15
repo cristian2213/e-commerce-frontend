@@ -11,6 +11,9 @@ const ResetPasswordPage = lazy(() =>
 const EmailValidationPage = lazy(() =>
   import('./pages/Auth/EmailValidation/EmailValidationPage')
 );
+const ChangePassPage = lazy(() =>
+  import('./pages/Auth/ChangePass/ChangePassPage')
+);
 
 function App() {
   return (
@@ -27,11 +30,7 @@ function App() {
             path='/email-validation/:token'
             element={<EmailValidationPage />}
           />
-          {/* FIXME RESTRICT ACCESS */}
-          <Route
-            path='/change-password'
-            element={<p>Change password page</p>}
-          />
+          <Route path='/change-password' element={<ChangePassPage />} />
           <Route
             path='/dashboard'
             element={

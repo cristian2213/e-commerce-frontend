@@ -43,7 +43,7 @@ function ResetPassword() {
       : 'The email field is invalid';
 
   return (
-    <FormWrap>
+    <FormWrap className={styles['form-wrap']}>
       <form className={styles.form} onSubmit={handleSubmit} noValidate>
         <legend>Please enter your email to reset your password.</legend>
         <InputWrap className='margin--bottom-md'>

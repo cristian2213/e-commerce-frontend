@@ -93,7 +93,7 @@ function LoginForm() {
 
   return (
     <>
-      <FormWrap>
+      <FormWrap className={styles['form-wrap']}>
         <SocialNetworks />
 
         <form onSubmit={handleSubmit} className={styles.form} noValidate>
