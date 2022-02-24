@@ -24,6 +24,7 @@ export function validateEmailToken(token) {
       dispatch(
         setEmailToken({
           hasValidToken,
+          token,
         })
       );
     } catch (error) {

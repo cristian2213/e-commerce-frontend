@@ -2,7 +2,9 @@ import React from 'react';
 import styles from './InputWrap.module.css';
 
 function InputWrap(props) {
-  const wrapStyles = `${props.className} ${styles.wrap}`;
+  const wrapStyles = props.className
+    ? `${props.className} ${styles.wrap}`
+    : styles.wrap;
   return <div className={wrapStyles}>{props.children}</div>;
 }
 
