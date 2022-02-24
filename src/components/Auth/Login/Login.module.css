@@ -104,3 +104,7 @@
 .input-in-focus-mode {
   outline: 1px solid #5e72e4;
 }
+
+.form-wrap {
+  transform: translate(0, -25%);
+}

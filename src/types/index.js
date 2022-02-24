@@ -8,4 +8,7 @@ export const N_ERROR = 'PENDING';
 
 // AUTHENTICATION TOKEN
 export const TOKEN_KEY = 'TOKEN_KEY';
-export const TOKEN_TTL = 'TOKEN_TTL'
+export const TOKEN_TTL = 'TOKEN_TTL';
+
+// PASSWORD CHANGE TOKEN
+export const TOKEN_KEY_TO_CHANGE_PASS = 'TOKEN_KEY_TO_CHANGE_PASS';

@@ -1,4 +1,4 @@
-import clientAxios from '../../config/clientAxios';
+import clientAxios from '../../config/axios/clientAxios';
 import { showNotification } from '../Notifications/notificationSlice';
 import {
   setRequestCompleted,
@@ -35,6 +35,51 @@ export function commitEmailChecking(email) {
         showNotification({
           title: 'Password reset',
           message: errorMsg,
+        })
+      );
+    }
+  };
+}
+
+export function commitChangePassword(passwords, token) {
+  return async (dispatch) => {
+    const { password, confirmPassword } = passwords;
+    dispatch(setStartRequest());
+    try {
+      const response = await clientAxios.post(
+        `/users/reset-password/${token}`,
+        {
+          password,
+          confirmPassword,
+        }
+      );
+
+      dispatch(
+        setRequestCompleted({
+          isSuccessful: true,
+        })
+      );
+
+      const resposeMsg = parseResponseMsg(response);
+      dispatch(
+        showNotification({
+          title: 'Change password',
+          message: resposeMsg,
+          showNotification: true,
+        })
+      );
+    } catch (error) {
+      const errorMsg = parseResponseMsg(error, true);
+      dispatch(
+        setRequestCompleted({
+          isSuccessful: false,
+        })
+      );
+      dispatch(
+        showNotification({
+          title: 'Change password',
+          message: errorMsg,
+          showNotification: true,
         })
       );
     }

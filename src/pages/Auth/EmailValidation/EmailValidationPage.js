@@ -20,7 +20,7 @@ function EmailValidationPage() {
   const { requestCompleted, isSuccessful } = useSelector(selectRequestStatus);
 
   useEffect(() => {
-    if (hasValidToken) navigate('/change-password');
+    if (hasValidToken) navigate('/change-password', {replace: true});
 
     timeOut = setTimeout(() => {
       dispatch(validateEmailToken(token));
